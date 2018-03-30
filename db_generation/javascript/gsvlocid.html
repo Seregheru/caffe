@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Street View Nearest</title>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDy9WjhTWVPKjfGBv3bPiyqcToQ4NUJEyc"></script>
+  </head>
+  <body>
+    <a id="link"></a>
+    <div id="results"></div>
+    <script>
+	function savedata() {
+		var link = document.getElementById("link");
+		var res = document.getElementById("results");
+		blob = new Blob([res.textContent], {type: "text/html"}),
+		url = window.URL.createObjectURL(blob);
+		link.href = url;
+		link.download = "test.txt";
+		link.click();
+		window.URL.revokeObjectURL(url);
+	}
+	function initialize(loc) {
+		var sv = new google.maps.StreetViewService();
+		sv.getPanoramaByLocation(loc,50,processSVData);
+	}
+	function processSVData(data, status) {
+		var res = document.getElementById("results");
+		if (status === google.maps.StreetViewStatus.OK) {
+		  var res = document.getElementById('results');
+		  res.innerHTML = res.innerHTML + data.location.latLng.lat() + ',' +  data.location.latLng.lng() + ',' + data.location.pano + '\n';
+		  //alert(data.location.latLng);
+		}
+	}
+	var locations = { 0:{lat:48.676462,lng:6.156339}, 1:{lat:42.345601, lng:-71.098348} };
+	for(var i=0;i<2;i++){
+		var loc = locations[i];
+		setTimeout(initialize, (i+1)*50,loc);
+	}
+	setTimeout(savedata,3*50+1000);
+
+    </script>
+    
+  </body>
+</html>
+

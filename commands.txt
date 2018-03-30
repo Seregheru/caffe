@@ -1,0 +1,9 @@
+./caffe train -gpu 0 -solver /home/fond/caffe-segnet/models/segnet_planes_only/segnet_solver.prototxt -weights /home/fond/caffe-segnet/models/segnet_planes_only/test_weights.caffemodel
+
+./caffe train -gpu 0 -solver /home/fond/caffe-segnet/models/segnet_vp_only/segnet_solver.prototxt -weights /home/fond/caffe-segnet/models/segnet_vp_only/segnetplanes_fine_iter_30000.caffemodel
+
+python netsurgery.py
+
+./caffe train -gpu 0 -solver /home/fond/caffe-segnet/models/segnet_vp/segnet_solver.prototxt -weights /home/fond/caffe-segnet/models/segnet_vp/netsurgeryq.caffemodel
+
+python compute_bn_statistics.py /home/fond/caffe-segnet/models/segnet_vp/segnet_trainq.prototxt /home/fond/caffe-segnet/models/segnet_vp/segnetplanesvpq_fine_iter_30000.caffemodel /home/fond/caffe-segnet/models/inference_segnet_vp/

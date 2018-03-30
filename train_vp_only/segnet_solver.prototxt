@@ -1,0 +1,16 @@
+net: "/home/fond/caffe-segnet/models/segnet_vp_only/segnet_trainq.prototxt"
+test_initialization: false
+test_iter: 1
+test_interval: 10000000
+#base_lr: 0.000000001
+base_lr: 0.000001
+lr_policy: "step"
+gamma: 1.0
+stepsize: 1000
+display: 20
+momentum: 0.9
+max_iter: 30000
+weight_decay: 0.0005
+snapshot: 1000
+snapshot_prefix: "/home/fond/caffe-segnet/models/segnet_vp_only/segnetvpq_new"
+solver_mode: GPU

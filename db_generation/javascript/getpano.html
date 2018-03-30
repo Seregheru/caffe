@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
+    <title>Pano DL</title> 
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false" type="text/javascript"></script> 
+    <script src="../js/jquery.min.js" type="text/javascript"></script>
+    <script src="../js/jquery.base64.min.js" type="text/javascript"></script>
+    <script src="../js/zpipe.min.js" type="text/javascript"></script>
+    <script src="../js/GSVPano.js" type="text/javascript"></script>
+    <script>
+        function init(panoid) {
+            var _panoLoader = new GSVPANO.PanoLoader({zoom: 2});
+            _panoLoader.onPanoramaLoad = function() {
+		ctx = this.canvas.getContext('2d');
+		imgData = ctx.getImageData(0,0,this.canvas.width,this.canvas.height);
+                document.body.appendChild(this.canvas);
+		//var link = document.createElement("a");
+		var link = document.getElementById("link");
+		link.download = panoid + ".png";
+		this.canvas.toBlob(function(blob){
+		    link.href = URL.createObjectURL(blob);
+		    link.click();
+		    URL.revokeObjectURL(link.href);
+		    var _canvas = document.getElementById("canvas");
+		    document.body.removeChild(_canvas);
+		});
+		//ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            };
+            _panoLoader.load(panoid);
+        }
+	var ids = {0: 'P0wpM7mGYX_YpgvGFGJS0A', 1: 'H1ZQr_6md4il-IUy4q6cxA', 2: 'b8zJdabHmju3RwAP9bRR6A'};
+        for(var i=0;i<3;i++){
+		var panoid = ids[i];
+		console.log(ids[i]);
+		setTimeout(init,(i+1)*3000,panoid);
+	}
+
+    </script> 
+</head> 
+<body>
+<a id="link"></a>
+</body> 
+</html>
