@@ -17,3 +17,5 @@ Training process of ManhattanNet:
 Results:
 
 ![results](images/results.png)
+
+More details available in the first section of my thesis (https://tel.archives-ouvertes.fr/tel-01789709/document) ... unfortunatly in French only
